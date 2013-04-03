@@ -67,55 +67,31 @@ int main () {
 	Species hopper('h');
 	Species rover('r');
 	Species trap('t');
-
-    // ----
-    // food
-    // ----
-
-    /*
-     0: left
-     1: go 0
-    */
-
-    // ------
-    // hopper
-    // ------
-
-    /*
-     0: hop
-     1: go 0
-    */
-
-    // -----
-    // rover
-    // -----
-
-    /*
-     0: if_enemy 9
-     1: if_empty 7
-     2: if_random 5
-     3: left
-     4: go 0
-     5: right
-     6: go 0
-     7: hop
-     8: go 0
-     9: infect
-    10: go 0
-    */
-
-    // ----
-    // trap
-    // ----
-
-    /*
-     0: if_enemy 3
-     1: left
-     2: go 0
-     3: infect
-     4: go 0
-    */
-
+	
+	food.add_instruction("left");
+	food.add_instruction("go", 0);
+	
+	hopper.add_instruction("hop");
+	hopper.add_instruction("go", 0);
+	
+	rover.add_instruction("if_enemy", 9);
+	rover.add_instruction("if_empty", 7);
+	rover.add_instruction("if_random", 5);
+	rover.add_instruction("left");
+	rover.add_instruction("go", 0);
+	rover.add_instruction("right");
+	rover.add_instruction("go", 0);
+	rover.add_instruction("hop");
+	rover.add_instruction("go", 0);
+	rover.add_instruction("infect");
+	rover.add_instruction("go", 0);
+	
+	trap.add_instruction("if_enemy", 3);
+	trap.add_instruction("left");
+	trap.add_instruction("go", 0);
+	trap.add_instruction("infect");
+	trap.add_instruction("go", 0);
+	
     // ----------
     // darwin 8x8
     // ----------
@@ -136,6 +112,10 @@ int main () {
         game.add_creature(h4, 4, 3);
         game.add_creature(f2, 7, 7);
         game.print();
+        for(int i = 0; i < 5; ++i) {
+			game.step();
+			game.print();
+		}
         /*
         8x8 Darwin
         Food,   facing east,  at (0, 0)
@@ -160,6 +140,20 @@ int main () {
     try {
         cout << "*** Darwin 7x9 ***" << endl;
         srand(0);
+        Game game(7,9);
+        Creature t1(trap, 2);
+        Creature h1(hopper, 1);
+        Creature r1(rover, 0);
+        Creature t2(trap, 3);
+        game.add_creature(t1, 0, 0);
+        game.add_creature(h1, 3, 2);
+        game.add_creature(r1, 5, 4);
+        game.add_creature(t2, 6, 8);
+        game.print();
+        for(int i = 0; i < 5; ++i) {
+			game.step();
+			game.print();
+		}
         /*
         7x9 Darwin
         Trap,   facing south, at (0, 0)

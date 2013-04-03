@@ -13,31 +13,31 @@ class InstructionSet {
 	public:
 		static unordered_map<string,int> map;
 		InstructionSet();
-		static void add(string, int);
 };
 
 class Species {
 	private:
-		vector<pair<int, int> > i;
+		static int id_count;
 	public:
+		vector<pair<int, int> > i;
+		int id;
 		char avatar; //'f' for food, 'h' for hopper, etc..
 		Species();		
-		Species(char);		
-		bool execute(int);		
-		void add_instruction(int, int);
+		Species(char);
+		void add_instruction(string, int = 0);
 		ostream& operator<<(const Species&);
 };
 
 class Creature {
-	private:
-		int _dir;		//0 for north, 1 for east, 2 for south, 3 for west
-		int pc;
 	public:
+		int pc;
+		int _dir;		//0 for north, 1 for east, 2 for south, 3 for west
 		Species _sp;
+		bool done;
 		bool empty;
 		Creature();
 		Creature(Species, int);
-		void run();
+		pair<int, int> run();
 };
 
 class Game {
@@ -50,6 +50,8 @@ class Game {
 	public:
 		Game(int, int);
 		bool add_creature(Creature, int, int);
+		void step();
+		bool perform(int, pair<int, int>);
 		void print();
 };
 
