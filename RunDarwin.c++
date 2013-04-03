@@ -98,24 +98,6 @@ int main () {
 
     try {
         cout << "*** Darwin 8x8 ***" << endl;
-        //~ Game game(8,8);
-        //~ Creature f1(food, 1);
-        //~ Creature h1(hopper, 0);
-        //~ Creature h2(hopper, 1);
-        //~ Creature h3(hopper, 2);
-        //~ Creature h4(hopper, 3);
-        //~ Creature f2(food, 0);
-        //~ game.add_creature(f1, 0, 0);
-        //~ game.add_creature(h1, 3, 3);
-        //~ game.add_creature(h2, 3, 4);
-        //~ game.add_creature(h3, 4, 4);
-        //~ game.add_creature(h4, 4, 3);
-        //~ game.add_creature(f2, 7, 7);
-        //~ game.print();
-        //~ for(int i = 0; i < 5; ++i) {
-			//~ game.step();
-			//~ game.print();
-		//~ }
         /*
         8x8 Darwin
         Food,   facing east,  at (0, 0)
@@ -127,7 +109,26 @@ int main () {
         Simulate 5 moves.
         Print every grid.
         */
-        }
+        
+        //~ Game game(8,8);
+        //~ Creature f1(food, 2);
+        //~ Creature h1(hopper, 1);
+        //~ Creature h2(hopper, 2);
+        //~ Creature h3(hopper, 3);
+        //~ Creature h4(hopper, 0);
+        //~ Creature f2(food, 1);
+        //~ game.add_creature(f1, 0, 0);
+        //~ game.add_creature(h1, 3, 3);
+        //~ game.add_creature(h2, 3, 4);
+        //~ game.add_creature(h3, 4, 4);
+        //~ game.add_creature(h4, 4, 3);
+        //~ game.add_creature(f2, 7, 7);
+        //~ game.print();
+        //~ for(int i = 0; i < 5; ++i) {
+			//~ game.step();
+			//~ game.print();
+		//~ }
+	}
     catch (const invalid_argument&) {
         assert(false);}
     catch (const out_of_range&) {
@@ -140,20 +141,6 @@ int main () {
     try {
         cout << "*** Darwin 7x9 ***" << endl;
         srand(0);
-        Game game(7,9);
-        Creature t1(trap, 2);
-        Creature h1(hopper, 1);
-        Creature r1(rover, 0);
-        Creature t2(trap, 3);
-        game.add_creature(t1, 0, 0);
-        game.add_creature(h1, 3, 2);
-        game.add_creature(r1, 5, 4);
-        game.add_creature(t2, 6, 8);
-        game.print();
-        for(int i = 0; i < 5; ++i) {
-			game.step();
-			game.print();
-		}
         /*
         7x9 Darwin
         Trap,   facing south, at (0, 0)
@@ -163,7 +150,22 @@ int main () {
         Simulate 5 moves.
         Print every grid.
         */
-        }
+        
+        Game game(7,9);
+        Creature t1(trap, 3);
+        Creature h1(hopper, 2);
+        Creature r1(rover, 1);
+        Creature t2(trap, 0);
+        game.add_creature(t1, 0, 0);
+        game.add_creature(h1, 3, 2);
+        game.add_creature(r1, 5, 4);
+        game.add_creature(t2, 6, 8);
+        game.print();
+        for(int i = 0; i < 5; ++i) {
+			game.step();
+			game.print();
+		}
+	}
     catch (const invalid_argument&) {
         assert(false);}
     catch (const out_of_range&) {
@@ -191,7 +193,40 @@ int main () {
         Simulate 1000 moves.
         Print every 100th grid.
         */
-        }
+        Game game(72,72);
+        for(int i = 0; i < 10; ++i) {
+			int pos = rand() % 5184;
+			int dir = rand() % 4;
+			Creature f(food, dir);
+			while(!game.add_creature(f, pos/72, pos%72)){};		
+		}
+		for(int i = 0; i < 10; ++i) {
+			int pos = rand() % 5184;
+			int dir = rand() % 4;
+			Creature h(hopper, dir);
+			while(!game.add_creature(h, pos/72, pos%72)){};		
+		}
+		for(int i = 0; i < 10; ++i) {
+			int pos = rand() % 5184;
+			int dir = rand() % 4;
+			Creature r(rover, dir);
+			while(!game.add_creature(r, pos/72, pos%72)){};		
+		}
+		for(int i = 0; i < 10; ++i) {
+			int pos = rand() % 5184;
+			int dir = rand() % 4;
+			Creature t(trap, dir);
+			while(!game.add_creature(t, pos/72, pos%72)){};		
+		}
+		
+        game.print();
+        for(int j = 0; j < 10; ++j) {
+			for(int i = 0; i < 100; ++i) {
+				game.step();
+			}
+			game.print();
+		}
+	}
     catch (const invalid_argument&) {
         assert(false);}
     catch (const out_of_range&) {

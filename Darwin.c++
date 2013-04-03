@@ -103,62 +103,55 @@ bool Game::perform(int pos, pair<int, int> i) {
 	
 	switch(get<0>(i)) {
 		case 1:		//hop
-			if(dir == 0) { //north
+			++_creatures[pos].pc;
+			_creatures[pos].done = true;
+			if(dir == 1) { //north
 				if(ypos != 0) {			//if not at the north wall
 					if(_creatures[pos - _xsize].empty) {	//if spot above is empty
-						_creatures[pos].done = true;
-						++_creatures[pos].pc;
 						swap(_creatures[pos], _creatures[pos - _xsize]);
 					}
 				}
 			}
-			else if(dir == 1) {	//east
+			else if(dir == 2) {	//east
 				if(xpos != _xsize-1) {	//if not at east wall
 					if(_creatures[pos + 1].empty) {			//if spot to the right is empty
-						_creatures[pos].done = true;
-						++_creatures[pos].pc;
 						swap(_creatures[pos], _creatures[pos+1]);
 					}
 				}
 			}
-			else if(dir == 2) {	//south		
+			else if(dir == 3) {	//south		
 				if(ypos != _ysize-1) {	//if not at south wall
 					if(_creatures[pos + _xsize].empty) {	//if spot below is empty
-						_creatures[pos].done = true;
-						++_creatures[pos].pc;
 						swap(_creatures[pos], _creatures[pos+_xsize]);
 					}
 				}
 			}
-			else if(dir == 3) {	//west
+			else if(dir == 0) {	//west
 				if(xpos != 0) {			//if not at west wall
 					if(_creatures[pos - 1].empty) {			//if spot to the left is empty
-						_creatures[pos].done = true;
-						++_creatures[pos].pc;
 						swap(_creatures[pos], _creatures[pos-1]);
 					}
 				}				
 			}
 			return true;
-			break;
 		case 2:		//left
+			++_creatures[pos].pc;
+			_creatures[pos].done = true;
 			if(dir == 0)
 				_creatures[pos]._dir = 3;
 			else
 				_creatures[pos]._dir = dir - 1;
-			++_creatures[pos].pc;
-			_creatures[pos].done = true;
 			return true;
-			break;
 		case 3:		//right
-			_creatures[pos]._dir = (dir + 1) % 4;
 			++_creatures[pos].pc;
 			_creatures[pos].done = true;
+			_creatures[pos]._dir = (dir + 1) % 4;
 			return true;
-			break;
 		case 4:		//infect
 			//do stuff
-			if(dir == 0) { //north
+			++_creatures[pos].pc;
+			_creatures[pos].done = true;
+			if(dir == 1) { //north
 				if(ypos != 0) {			//if not at the north wall
 					if(!_creatures[pos - _xsize].empty) {	//if spot above is not empty
 						if(_creatures[pos - _xsize]._sp.id != _creatures[pos]._sp.id){
@@ -168,7 +161,7 @@ bool Game::perform(int pos, pair<int, int> i) {
 					}
 				}
 			}
-			else if(dir == 1) {	//east
+			else if(dir == 2) {	//east
 				if(xpos != _xsize-1) {	//if not at east wall
 					if(!_creatures[pos + 1].empty) {			//if spot to the right is not empty
 						if(_creatures[pos + 1]._sp.id != _creatures[pos]._sp.id) {
@@ -178,7 +171,7 @@ bool Game::perform(int pos, pair<int, int> i) {
 					}
 				}
 			}
-			else if(dir == 2) {	//south		
+			else if(dir == 3) {	//south		
 				if(ypos != _ysize-1) {	//if not at south wall
 					if(!_creatures[pos + _xsize].empty) {	//if spot below is not empty
 						if(_creatures[pos + _xsize]._sp.id != _creatures[pos]._sp.id) {
@@ -188,7 +181,7 @@ bool Game::perform(int pos, pair<int, int> i) {
 					}
 				}
 			}
-			else if(dir == 3) {	//west
+			else if(dir == 0) {	//west
 				if(xpos != 0) {			//if not at west wall
 					if(!_creatures[pos - 1].empty) {			//if spot to the left is not empty
 						if(_creatures[pos - 1]._sp.id != _creatures[pos]._sp.id) {
@@ -198,12 +191,9 @@ bool Game::perform(int pos, pair<int, int> i) {
 					}
 				}				
 			}
-			++_creatures[pos].pc;
-			_creatures[pos].done = true;
 			return true;
-			break;
 		case 5:		//if_empty
-			if(dir == 0) { //north
+			if(dir == 1) { //north
 				if(ypos != 0) {			//if not at the north wall
 					if(_creatures[pos - _xsize].empty) {	//if spot above is empty
 						_creatures[pos].pc = arg;
@@ -211,7 +201,7 @@ bool Game::perform(int pos, pair<int, int> i) {
 					}
 				}
 			}
-			else if(dir == 1) {	//east
+			else if(dir == 2) {	//east
 				if(xpos != _xsize-1) {	//if not at east wall
 					if(_creatures[pos + 1].empty) {			//if spot to the right is empty
 						_creatures[pos].pc = arg;
@@ -219,7 +209,7 @@ bool Game::perform(int pos, pair<int, int> i) {
 					}
 				}
 			}
-			else if(dir == 2) {	//south		
+			else if(dir == 3) {	//south		
 				if(ypos != _ysize-1) {	//if not at south wall
 					if(_creatures[pos + _xsize].empty) {	//if spot below is empty
 						_creatures[pos].pc = arg;
@@ -227,7 +217,7 @@ bool Game::perform(int pos, pair<int, int> i) {
 					}
 				}
 			}
-			else if(dir == 3) {	//west
+			else if(dir == 0) {	//west
 				if(xpos != 0) {			//if not at west wall
 					if(_creatures[pos - 1].empty) {			//if spot to the left is empty
 						_creatures[pos].pc = arg;
@@ -237,27 +227,26 @@ bool Game::perform(int pos, pair<int, int> i) {
 			}
 			++_creatures[pos].pc;
 			return false;
-			break;
 		case 6:		//if_wall
-			if(dir == 0) { //north
+			if(dir == 1) { //north
 				if(ypos == 0) {			//if at the north wall
 					_creatures[pos].pc = arg;
 					return false;
 				}
 			}
-			else if(dir == 1) {	//east
+			else if(dir == 2) {	//east
 				if(xpos != _xsize-1) {	//if at east wall
 					_creatures[pos].pc = arg;
 					return false;
 				}
 			}
-			else if(dir == 2) {	//south		
+			else if(dir == 3) {	//south		
 				if(ypos != _ysize-1) {	//if at south wall
 					_creatures[pos].pc = arg;
 					return false;
 				}
 			}
-			else if(dir == 3) {	//west
+			else if(dir == 0) {	//west
 				if(xpos != 0) {			//if at west wall
 					_creatures[pos].pc = arg;
 					return false;
@@ -265,63 +254,59 @@ bool Game::perform(int pos, pair<int, int> i) {
 			}
 			++_creatures[pos].pc;
 			return false;
-			break;
 		case 7:		//if_random
 			if(rand() % 2 == 1)
 				_creatures[pos].pc = arg;
 			else
 				++_creatures[pos].pc;
 			return false;
-			break;
 		case 8:		//if_enemy
 			//cout << "if_enemy lv.1" << endl;
-			if(dir == 0) { //north
-				//cout << "if_enemy lv.2: north" << endl;
+			if(dir == 1) { //north
 				if(ypos != 0) {			//if not at the north wall
-					//cout << "if_enemy lv.3: not at north wall" << endl;
-					if(!_creatures[pos - _xsize].empty) {	//if spot above is not empty
-						//cout << "if_enemy lv.4: above is not empty" << endl;					
-						if(_creatures[pos - _xsize]._sp.id != _creatures[pos]._sp.id)
-							//cout << "if_enemy lv.5: above is enemy!" << endl;					
+					if(!_creatures[pos - _xsize].empty) {	//if spot above is not empty		
+						if(_creatures[pos - _xsize]._sp.id != _creatures[pos]._sp.id) {	
 							_creatures[pos].pc = arg;
 							return false;
+						}
 					}
 				}
 			}
-			else if(dir == 1) {	//east
+			else if(dir == 2) {	//east
 				if(xpos != _xsize-1) {	//if not at east wall
 					if(!_creatures[pos + 1].empty) {			//if spot to the right is not empty
-						if(_creatures[pos + 1]._sp.id != _creatures[pos]._sp.id) 
+						if(_creatures[pos + 1]._sp.id != _creatures[pos]._sp.id) {
 							_creatures[pos].pc = arg;
 							return false;
+						}
 					}
 				}
 			}
-			else if(dir == 2) {	//south		
+			else if(dir == 3) {	//south		
 				if(ypos != _ysize-1) {	//if not at south wall
 					if(!_creatures[pos + _xsize].empty) {	//if spot below is not empty
-						if(_creatures[pos + _xsize]._sp.id != _creatures[pos]._sp.id) 
+						if(_creatures[pos + _xsize]._sp.id != _creatures[pos]._sp.id) {
 							_creatures[pos].pc = arg;
 							return false;
+						}
 					}
 				}
 			}
-			else if(dir == 3) {	//west
+			else if(dir == 0) {	//west
 				if(xpos != 0) {			//if not at west wall
 					if(!_creatures[pos - 1].empty) {			//if spot to the left is not empty
-						if(_creatures[pos - 1]._sp.id != _creatures[pos]._sp.id) 
+						if(_creatures[pos - 1]._sp.id != _creatures[pos]._sp.id) {
 							_creatures[pos].pc = arg;
 							return false;
+						}
 					}
 				}				
 			}
 			++_creatures[pos].pc;
 			return false;
-			break;
 		case 9:		//go
 			_creatures[pos].pc = arg;
 			return false;
-			break;
 		default:
 			cout << "you shouldn't be here." << endl;
 			return true;

@@ -31,7 +31,7 @@ class Species {
 class Creature {
 	public:
 		int pc;
-		int _dir;		//0 for north, 1 for east, 2 for south, 3 for west
+		int _dir;		//0 for west, 1 for north, 2 for east, 3 for south
 		Species _sp;
 		bool done;
 		bool empty;
