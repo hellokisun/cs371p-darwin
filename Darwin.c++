@@ -9,23 +9,29 @@
 
 using namespace std;
 
-unordered_map<string, int> InstructionSet::map;
+unordered_map<string, int> InstructionSet::mymap;
 int Species::id_count = 0;
 
 InstructionSet::InstructionSet() {}
 
 Species::Species() {
 	id = id_count++;
+	assert(id != id_count);
 	avatar = '.';
 }
 		
 Species::Species(char a) {
 	id = id_count++;
+	assert(id != id_count);
 	avatar = a;
 }
 
-void Species::add_instruction(string ins, int arg) {
-	i.push_back(pair<int, int>(InstructionSet::map[ins], arg));
+bool Species::add_instruction(string ins, int arg) {
+	if(InstructionSet::mymap.count(ins) == 0) {
+		return false;
+	}
+	i.push_back(pair<int, int>(InstructionSet::mymap[ins], arg));
+	return true;
 }
 
 ostream& operator<<(ostream &o, const Species &s) {
@@ -57,8 +63,10 @@ Game::Game(int ysize, int xsize) {
 }
 
 bool Game::add_creature(Creature c, int y, int x) {
+	assert(x >= 0);
+	assert(y >= 0);
 	//adds creature to the game at (x,y). returns false if fails
-	if(!_creatures[x + y*_xsize].empty)
+	if((x+y*_xsize >= (int)_creatures.size()) || !_creatures[x + y*_xsize].empty)
 		return false;
 	else {
 		//add creature
@@ -85,14 +93,19 @@ void Game::step() {
 	
 	//undone everyone;
 	for(int i = 0; i < _xsize*_ysize; ++i) {
-		if(!_creatures[i].empty)
+		if(!_creatures[i].empty) {
+			assert(_creatures[i].done);
 			_creatures[i].done = false;
+		}
 	}
 }
 
 //returns true if an action is performed, false otherwise
 bool Game::perform(int pos, pair<int, int> i) {
 	//take an instruction and attempt to do it for the creature at position pos
+	assert(pos >= 0);
+	assert(get<0>(i) < 10);
+	assert(get<0>(i) >= 0);
 	int arg = get<1>(i);
 	int dir = _creatures[pos]._dir;
 	int xpos = pos % _xsize;
@@ -146,6 +159,7 @@ bool Game::perform(int pos, pair<int, int> i) {
 			++_creatures[pos].pc;
 			_creatures[pos].done = true;
 			_creatures[pos]._dir = (dir + 1) % 4;
+			assert(_creatures[pos]._dir < 4);
 			return true;
 		case 4:		//infect
 			//do stuff
@@ -315,6 +329,7 @@ bool Game::perform(int pos, pair<int, int> i) {
 
 void Game::print() {
 	//print turn number
+	assert(turn >= 0);
 	cout << "Turn = " << turn << "." << endl;
 	//print column numbers
 	cout << "  ";

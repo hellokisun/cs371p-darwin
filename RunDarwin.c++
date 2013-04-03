@@ -53,15 +53,15 @@ int main () {
 	//			8		if_enemy n	If the space ahead contains a creature of a different species, go to line n, otherwise, go to the next line.
 	//			9		go n		Go to line n.
 	
-	InstructionSet::map["hop"] = 1;
-	InstructionSet::map["left"] = 2;
-	InstructionSet::map["right"] = 3;
-	InstructionSet::map["infect"] = 4;
-	InstructionSet::map["if_empty"] = 5;
-	InstructionSet::map["if_wall"] = 6;
-	InstructionSet::map["if_random"] = 7;
-	InstructionSet::map["if_enemy"] = 8;
-	InstructionSet::map["go"] = 9;
+	InstructionSet::mymap["hop"] = 1;
+	InstructionSet::mymap["left"] = 2;
+	InstructionSet::mymap["right"] = 3;
+	InstructionSet::mymap["infect"] = 4;
+	InstructionSet::mymap["if_empty"] = 5;
+	InstructionSet::mymap["if_wall"] = 6;
+	InstructionSet::mymap["if_random"] = 7;
+	InstructionSet::mymap["if_enemy"] = 8;
+	InstructionSet::mymap["go"] = 9;
 	
 	Species food('f');
 	Species hopper('h');

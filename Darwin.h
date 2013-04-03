@@ -11,7 +11,7 @@ using namespace std;
 
 class InstructionSet {
 	public:
-		static unordered_map<string,int> map;
+		static unordered_map<string,int> mymap;
 		InstructionSet();
 };
 
@@ -24,7 +24,7 @@ class Species {
 		char avatar; //'f' for food, 'h' for hopper, etc..
 		Species();		
 		Species(char);
-		void add_instruction(string, int = 0);
+		bool add_instruction(string, int = 0);
 		ostream& operator<<(const Species&);
 };
 
@@ -43,11 +43,11 @@ class Creature {
 class Game {
 	private:
 		vector<Creature> _creatures;
-		int turn;
 		int _xsize;		//horizontal size of the board
 		int _ysize;		//vertical size of the board
 	
 	public:
+		int turn;
 		Game(int, int);
 		bool add_creature(Creature, int, int);
 		void step();
