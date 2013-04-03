@@ -93,41 +93,53 @@ int main () {
 	trap.add_instruction("infect");
 	trap.add_instruction("go", 0);
 	
-	best.add_instruction("if_enemy", 19);
-	best.add_instruction("if_wall", 3);
-	best.add_instruction("go", 28);
+	best.add_instruction("if_enemy", 9);
+	best.add_instruction("if_empty", 7);
+	best.add_instruction("if_random", 5);
 	best.add_instruction("left");
-	best.add_instruction("if_wall", 22);
-	best.add_instruction("if_enemy", 19);
-	best.add_instruction("left");
-	best.add_instruction("if_enemy", 19);
-	best.add_instruction("hop");
-	best.add_instruction("if_enemy", 19);
-	best.add_instruction("left");
-	best.add_instruction("if_enemy", 19);
-	best.add_instruction("left");
-	best.add_instruction("if_enemy", 19);
-	best.add_instruction("left");
-	best.add_instruction("if_enemy", 19);
+	best.add_instruction("go", 0);
 	best.add_instruction("right");
-	best.add_instruction("if_enemy", 19);
-	best.add_instruction("go", 14);
+	best.add_instruction("go", 0);
+	best.add_instruction("hop");
+	best.add_instruction("go", 0);
 	best.add_instruction("infect");
+	best.add_instruction("if_random", 5);
+	best.add_instruction("if_empty", 7);
+	best.add_instruction("if_random", 3);
+	best.add_instruction("if_wall", 3);
+	best.add_instruction("if_random", 5);
+	best.add_instruction("if_wall", 5);
 	best.add_instruction("if_random", 0);
-	best.add_instruction("go", 13);
-	best.add_instruction("left");
-	best.add_instruction("if_enemy", 19);
-	best.add_instruction("if_wall", 16);
-	best.add_instruction("hop");
-	best.add_instruction("if_enemy", 19);
-	best.add_instruction("left");
-	best.add_instruction("if_enemy", 19);
-	best.add_instruction("hop");
-	best.add_instruction("if_enemy", 19);
-	best.add_instruction("right");
-	best.add_instruction("if_enemy", 19);	
-	best.add_instruction("go", 7);
-	
+	best.add_instruction("if_random", 2);
+	best.add_instruction("if_random", 1);
+	best.add_instruction("if_random", 5);
+	best.add_instruction("if_random", 3);
+	best.add_instruction("if_random", 4);
+	best.add_instruction("go", 0);
+	//~ 
+	//~ best.add_instruction("if_enemy", 14);
+	//~ best.add_instruction("if_empty", 13);
+	//~ best.add_instruction("left");
+	//~ best.add_instruction("go", 6);
+	//~ best.add_instruction("hop");
+	//~ best.add_instruction("if_enemy", 14);
+	//~ best.add_instruction("if_wall", 20);
+	//~ best.add_instruction("go", 0);
+	//~ best.add_instruction("left");
+	//~ best.add_instruction("infect");
+	//~ best.add_instruction("left");
+	//~ best.add_instruction("if_empty", 9);
+	//~ best.add_instruction("infect");
+	//~ best.add_instruction("hop");
+	//~ best.add_instruction("if_empty", 12);
+	//~ best.add_instruction("infect");
+	//~ best.add_instruction("hop");
+	//~ best.add_instruction("right");
+	//~ best.add_instruction("if_empty", 16);
+	//~ best.add_instruction("go", 0);
+	//~ best.add_instruction("hop");
+	//~ best.add_instruction("go", 0);
+	//~ 
     // ----------
     // darwin 8x8
     // ----------

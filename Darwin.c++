@@ -12,8 +12,6 @@ using namespace std;
 unordered_map<string, int> InstructionSet::mymap;
 int Species::id_count = 0;
 
-InstructionSet::InstructionSet() {}
-
 Species::Species() {
 	id = id_count++;
 	assert(id != id_count);
