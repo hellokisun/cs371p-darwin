@@ -7,7 +7,6 @@
 
 using namespace std;
 
-int Creature::id_count = 1;
 unordered_map<string, int> InstructionSet::map;
 
 InstructionSet::InstructionSet() {}
@@ -39,19 +38,16 @@ ostream& operator<<(ostream &o, const Species &s) {
 
 Creature::Creature() {
 	pc = 0;
-	_id = ++id_count;
-	on = false;
+	empty = true;
 }
 
-Creature::Creature(Species sp, int dir, int x, int y) {
+Creature::Creature(Species sp, int dir) {
 	pc = 0;
 	_sp = sp;
 	_dir = dir;
-	_x = x;
-	_y = y;
-	_id = ++id_count;
-	on = true;
+	empty = false;
 }
+
 void Creature::run() {
 	_sp.execute(pc);
 }
@@ -65,11 +61,11 @@ Game::Game(int xsize, int ysize) {
 
 bool Game::add_creature(Creature c, int x, int y) {
 	//adds creature to the game at (x,y). returns false if fails
-	if(!_creatures[x*y].on)
+	if(!_creatures[x + y*_xsize].empty)
 		return false;
 	else {
 		//add creature
-		_creatures[x*y] = c;
+		_creatures[x + y*_xsize] = c;
 		return true;
 	}
 }
@@ -88,10 +84,12 @@ void Game::print() {
 		cout << i%10 << " ";
 		//print the row
 		for(int j = 0; j < _xsize; ++j) {
-			cout << _creatures[i*_ysize + j]._sp;
+			cout << _creatures[i*_xsize + j]._sp;
 		}
 		cout << endl;
 	}
+	
+	cout << endl;
 }
 
 

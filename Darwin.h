@@ -30,15 +30,13 @@ class Species {
 
 class Creature {
 	private:
-		static int id_count;
-		int _dir;
-		int pc, _x, _y;
+		int _dir;		//0 for north, 1 for east, 2 for south, 3 for west
+		int pc;
 	public:
 		Species _sp;
-		bool on;
-		int _id;
+		bool empty;
 		Creature();
-		Creature(Species, int, int, int);
+		Creature(Species, int);
 		void run();
 };
 
