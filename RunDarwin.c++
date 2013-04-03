@@ -67,6 +67,7 @@ int main () {
 	Species hopper('h');
 	Species rover('r');
 	Species trap('t');
+	Species best('b');
 	
 	food.add_instruction("left");
 	food.add_instruction("go", 0);
@@ -92,6 +93,41 @@ int main () {
 	trap.add_instruction("infect");
 	trap.add_instruction("go", 0);
 	
+	best.add_instruction("if_enemy", 19);
+	best.add_instruction("if_wall", 3);
+	best.add_instruction("go", 28);
+	best.add_instruction("left");
+	best.add_instruction("if_wall", 22);
+	best.add_instruction("if_enemy", 19);
+	best.add_instruction("left");
+	best.add_instruction("if_enemy", 19);
+	best.add_instruction("hop");
+	best.add_instruction("if_enemy", 19);
+	best.add_instruction("left");
+	best.add_instruction("if_enemy", 19);
+	best.add_instruction("left");
+	best.add_instruction("if_enemy", 19);
+	best.add_instruction("left");
+	best.add_instruction("if_enemy", 19);
+	best.add_instruction("right");
+	best.add_instruction("if_enemy", 19);
+	best.add_instruction("go", 14);
+	best.add_instruction("infect");
+	best.add_instruction("if_random", 0);
+	best.add_instruction("go", 13);
+	best.add_instruction("left");
+	best.add_instruction("if_enemy", 19);
+	best.add_instruction("if_wall", 16);
+	best.add_instruction("hop");
+	best.add_instruction("if_enemy", 19);
+	best.add_instruction("left");
+	best.add_instruction("if_enemy", 19);
+	best.add_instruction("hop");
+	best.add_instruction("if_enemy", 19);
+	best.add_instruction("right");
+	best.add_instruction("if_enemy", 19);	
+	best.add_instruction("go", 7);
+	
     // ----------
     // darwin 8x8
     // ----------
@@ -110,24 +146,24 @@ int main () {
         Print every grid.
         */
         
-        //~ Game game(8,8);
-        //~ Creature f1(food, 2);
-        //~ Creature h1(hopper, 1);
-        //~ Creature h2(hopper, 2);
-        //~ Creature h3(hopper, 3);
-        //~ Creature h4(hopper, 0);
-        //~ Creature f2(food, 1);
-        //~ game.add_creature(f1, 0, 0);
-        //~ game.add_creature(h1, 3, 3);
-        //~ game.add_creature(h2, 3, 4);
-        //~ game.add_creature(h3, 4, 4);
-        //~ game.add_creature(h4, 4, 3);
-        //~ game.add_creature(f2, 7, 7);
-        //~ game.print();
-        //~ for(int i = 0; i < 5; ++i) {
-			//~ game.step();
-			//~ game.print();
-		//~ }
+        Game game(8,8);
+        Creature f1(food, 2);
+        Creature h1(hopper, 1);
+        Creature h2(hopper, 2);
+        Creature h3(hopper, 3);
+        Creature h4(hopper, 0);
+        Creature f2(food, 1);
+        game.add_creature(f1, 0, 0);
+        game.add_creature(h1, 3, 3);
+        game.add_creature(h2, 3, 4);
+        game.add_creature(h3, 4, 4);
+        game.add_creature(h4, 4, 3);
+        game.add_creature(f2, 7, 7);
+        game.print();
+        for(int i = 0; i < 5; ++i) {
+			game.step();
+			game.print();
+		}
 	}
     catch (const invalid_argument&) {
         assert(false);}
@@ -256,7 +292,46 @@ int main () {
         Best MUST outnumber ALL other species for the bonus pts.
         Print every 100th grid.
         */
-        }
+        Game game(72,72);
+        for(int i = 0; i < 10; ++i) {
+			int pos = rand() % 5184;
+			int dir = rand() % 4;
+			Creature f(food, dir);
+			while(!game.add_creature(f, pos/72, pos%72)){};		
+		}
+		for(int i = 0; i < 10; ++i) {
+			int pos = rand() % 5184;
+			int dir = rand() % 4;
+			Creature h(hopper, dir);
+			while(!game.add_creature(h, pos/72, pos%72)){};		
+		}
+		for(int i = 0; i < 10; ++i) {
+			int pos = rand() % 5184;
+			int dir = rand() % 4;
+			Creature r(rover, dir);
+			while(!game.add_creature(r, pos/72, pos%72)){};		
+		}
+		for(int i = 0; i < 10; ++i) {
+			int pos = rand() % 5184;
+			int dir = rand() % 4;
+			Creature t(trap, dir);
+			while(!game.add_creature(t, pos/72, pos%72)){};		
+		}
+		for(int i = 0; i < 10; ++i) {
+			int pos = rand() % 5184;
+			int dir = rand() % 4;
+			Creature b(best, dir);
+			while(!game.add_creature(b, pos/72, pos%72)){};		
+		}
+		
+        game.print();
+        for(int j = 0; j < 10; ++j) {
+			for(int i = 0; i < 100; ++i) {
+				game.step();
+			}
+			game.print();
+		}
+	}
     catch (const invalid_argument&) {
         assert(false);}
     catch (const out_of_range&) {
