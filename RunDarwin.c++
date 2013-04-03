@@ -30,6 +30,8 @@ To document the program:
 #include <cstdlib>   // rand, srand
 #include <iostream>  // cout, endl
 #include <stdexcept> // invalid_argument, out_of_range
+#include <string>
+#include "Darwin.h"
 
 // ----
 // main
@@ -38,6 +40,29 @@ To document the program:
 int main () {
     using namespace std;
     ios_base::sync_with_stdio(false); // turn off synchronization with C I/O
+    
+    //building dictionary of instructions
+    //Type		Code	Instruction	Description
+	//Action	1		hop			If the space ahead is empty, move forward, otherwise, do nothing.
+	//			2		left		Turn to face left.
+	//			3		right		Turn to face right.
+	//			4		infect		If the space ahead contains a creature of a different species, change that creature to be of your species, reset the program counter, but leave the direction unchanged, otherwise, do nothing.
+	//Control	5		if_empty n	If the space ahead is empty, go to line n, otherwise, go to the next line.
+	//			6		if_wall n	If the space ahead is a wall, go to line n, otherwise, go to the next line.
+	//			7		if_random n	Randomly choose between going to line n or the next line. If rand() from <cstdlib> returns an odd number, go to line n. Call srand(0) at the start of every test case that uses rand().
+	//			8		if_enemy n	If the space ahead contains a creature of a different species, go to line n, otherwise, go to the next line.
+	//			9		go n		Go to line n.
+	
+	InstructionSet::map["hop"] = 1;
+	InstructionSet::map["left"] = 2;
+	InstructionSet::map["right"] = 3;
+	InstructionSet::map["infect"] = 4;
+	InstructionSet::map["if_empty"] = 5;
+	InstructionSet::map["if_wall"] = 6;
+	InstructionSet::map["if_random"] = 7;
+	InstructionSet::map["if_enemy"] = 8;
+	InstructionSet::map["go"] = 9;		
+
 
     // ----
     // food
@@ -93,6 +118,8 @@ int main () {
 
     try {
         cout << "*** Darwin 8x8 ***" << endl;
+        Game game(8,8);
+        game.print();
         /*
         8x8 Darwin
         Food,   facing east,  at (0, 0)
