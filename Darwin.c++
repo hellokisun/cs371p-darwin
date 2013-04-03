@@ -97,6 +97,9 @@ bool Game::perform(int pos, pair<int, int> i) {
 	int dir = _creatures[pos]._dir;
 	int xpos = pos % _xsize;
 	int ypos = pos / _xsize;
+			
+	//cout << _creatures[pos]._sp << " - " << get<0>(i) <<  endl;
+	
 	
 	switch(get<0>(i)) {
 		case 1:		//hop
@@ -104,6 +107,7 @@ bool Game::perform(int pos, pair<int, int> i) {
 				if(ypos != 0) {			//if not at the north wall
 					if(_creatures[pos - _xsize].empty) {	//if spot above is empty
 						_creatures[pos].done = true;
+						++_creatures[pos].pc;
 						swap(_creatures[pos], _creatures[pos - _xsize]);
 					}
 				}
@@ -112,6 +116,7 @@ bool Game::perform(int pos, pair<int, int> i) {
 				if(xpos != _xsize-1) {	//if not at east wall
 					if(_creatures[pos + 1].empty) {			//if spot to the right is empty
 						_creatures[pos].done = true;
+						++_creatures[pos].pc;
 						swap(_creatures[pos], _creatures[pos+1]);
 					}
 				}
@@ -120,6 +125,7 @@ bool Game::perform(int pos, pair<int, int> i) {
 				if(ypos != _ysize-1) {	//if not at south wall
 					if(_creatures[pos + _xsize].empty) {	//if spot below is empty
 						_creatures[pos].done = true;
+						++_creatures[pos].pc;
 						swap(_creatures[pos], _creatures[pos+_xsize]);
 					}
 				}
@@ -128,11 +134,11 @@ bool Game::perform(int pos, pair<int, int> i) {
 				if(xpos != 0) {			//if not at west wall
 					if(_creatures[pos - 1].empty) {			//if spot to the left is empty
 						_creatures[pos].done = true;
+						++_creatures[pos].pc;
 						swap(_creatures[pos], _creatures[pos-1]);
 					}
 				}				
 			}
-			++_creatures[pos].pc;
 			return true;
 			break;
 		case 2:		//left
@@ -268,10 +274,15 @@ bool Game::perform(int pos, pair<int, int> i) {
 			return false;
 			break;
 		case 8:		//if_enemy
+			//cout << "if_enemy lv.1" << endl;
 			if(dir == 0) { //north
+				//cout << "if_enemy lv.2: north" << endl;
 				if(ypos != 0) {			//if not at the north wall
+					//cout << "if_enemy lv.3: not at north wall" << endl;
 					if(!_creatures[pos - _xsize].empty) {	//if spot above is not empty
+						//cout << "if_enemy lv.4: above is not empty" << endl;					
 						if(_creatures[pos - _xsize]._sp.id != _creatures[pos]._sp.id)
+							//cout << "if_enemy lv.5: above is enemy!" << endl;					
 							_creatures[pos].pc = arg;
 							return false;
 					}

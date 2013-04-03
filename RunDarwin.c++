@@ -98,24 +98,24 @@ int main () {
 
     try {
         cout << "*** Darwin 8x8 ***" << endl;
-        Game game(8,8);
-        Creature f1(food, 1);
-        Creature h1(hopper, 0);
-        Creature h2(hopper, 1);
-        Creature h3(hopper, 2);
-        Creature h4(hopper, 3);
-        Creature f2(food, 0);
-        game.add_creature(f1, 0, 0);
-        game.add_creature(h1, 3, 3);
-        game.add_creature(h2, 3, 4);
-        game.add_creature(h3, 4, 4);
-        game.add_creature(h4, 4, 3);
-        game.add_creature(f2, 7, 7);
-        game.print();
-        for(int i = 0; i < 5; ++i) {
-			game.step();
-			game.print();
-		}
+        //~ Game game(8,8);
+        //~ Creature f1(food, 1);
+        //~ Creature h1(hopper, 0);
+        //~ Creature h2(hopper, 1);
+        //~ Creature h3(hopper, 2);
+        //~ Creature h4(hopper, 3);
+        //~ Creature f2(food, 0);
+        //~ game.add_creature(f1, 0, 0);
+        //~ game.add_creature(h1, 3, 3);
+        //~ game.add_creature(h2, 3, 4);
+        //~ game.add_creature(h3, 4, 4);
+        //~ game.add_creature(h4, 4, 3);
+        //~ game.add_creature(f2, 7, 7);
+        //~ game.print();
+        //~ for(int i = 0; i < 5; ++i) {
+			//~ game.step();
+			//~ game.print();
+		//~ }
         /*
         8x8 Darwin
         Food,   facing east,  at (0, 0)
